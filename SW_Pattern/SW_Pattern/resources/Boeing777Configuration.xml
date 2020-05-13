@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Boeing>
+  <B777>
+    <FMS ProductID="1">
+      <Subscribe Name="WindSpeed" Origin="Simulation"
+		    Type="Int" Max="150" Min="-150" Default="0" />
+      <Subscribe Name="Duration" Origin="Simulation"
+        Type="Int" Max="12000" Min="0" Default="0" />
+      <Subscribe Name="FlightSpeed" Origin="4"
+		    Type="Int" Max="100" Min="0" Default="0" />
+      <Subscribe Name="VerticalSpeed" Origin="Simulation"
+		    Type="Int" Max="100" Min="-100" Default="0" />
+      <Subscribe Name="GPS_Latitude" Origin="2"
+        Type="Double" Max="90" Min="-90" Default="0" />
+      <Subscribe Name="GPS_Longitude" Origin="2"
+        Type="Double" Max="180" Min="-180" Default="0" />
+      <Subscribe Name="IRS_Latitude" Origin="3"
+        Type="Double" Max="90" Min="-90" Default="0" />
+      <Subscribe Name="IRS_Longitude" Origin="3"
+        Type="Double" Max="180" Min="-180" Default="0" />
+      <Publish Name="Speed" Type="Int" Default="0"
+		    Operation="Subtraction" Operand1="WindSpeed"
+		    Operand2="FlightSpeed" Max="500" Min="0" />
+      <Publish Name="Elevation_Change" Type="Int" Default="0"
+		    Operation="Multiplication" Operand1="Duration"
+		    Operand2="VerticalSpeed" Max="40000" Min="-40000" />
+      <Publish Name="Latitude" Type="Double" Default="0"
+        Operation="Average" Operand1="GPS_Latitude" Operand2="IRS_Latitude"
+        Max="90" Min="-90" ></Publish>
+      <Publish Name="Longitude" Type="Double" Default="0"
+        Operation="Average" Operand1="GPS_Longitude" Operand2="GPS_Longitude"
+        Max="180" Min="-180" />
+    </FMS>
+    <GPS ProductID="2">
+      <Publish Name="GPS_Latitude" Type="Double" Default="0" Min="-90" Max="90" 
+		Operation="Addition" Operand1="GPS_Latitude" Operand2="Latitude_Change" />
+      <Publish Name="GPS_Longitude" Type="Double" Default="0" Min="-180" Max="180" 
+		Operation="Addition" Operand1="GPS_Longitude" Operand2="Longitude_Change" />
+      <Publish Name="Accuracy" Type="Double" Default=".95" Min="0" Max="1" />
+      <Subscribe Name="Latitude_Change" Origin="Simulation"
+        Type ="Double" Default="0" Min="-90" Max="90" />
+      <Subscribe Name="Longitude_Change" Origin="Simulation"
+        Type="Double" Default="0" Min="-180" Max="180" />
+    </GPS>
+    <IRS ProductID="3">
+      <Publish Name="IRS_Latitude" Type="Double" Default="0" Min="-90" Max="90" 
+		Operation="Addition" Operand1="IRS_Latitude" Operand2="Latitude_Change" />
+      <Publish Name="IRS_Longitude" Type="Double" Default="0" Min="-180" Max="180" 
+		Operation="Addition" Operand1="IRS_Longitude" Operand2="Longitude_Change" />
+      <Publish Name="Accuracy" Type="Double" Default=".85" Min="0" Max="1" />
+      <Subscribe Name="Latitude_Change" Origin="Simulation"
+        Type ="Double" Default="0" Min="-90" Max="90" />
+      <Subscribe Name="Longitude_Change" Origin="Simulation"
+        Type="Double" Default="0" Min="-180" Max="180" />
+    </IRS>
+    <Engine ProductID="4">
+      <Publish Name="FlightSpeed" Type="Int" Default="450" Max="700" Min="0" />
+    </Engine>
+  </B777>
+</Boeing>

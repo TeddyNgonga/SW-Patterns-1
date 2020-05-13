@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Boeing>
+  <B737>
+    <FMS ProductID="1">
+      <Subscribe Name="WindSpeed" Origin="Simulation" 
+		    Type="Int" Max="120" Min="-120" Default="0" />
+      <Subscribe Name="Duration" Origin="Simulation"
+		    Type="Int" Max="12000" Min="0" Default="0" />
+      <Subscribe Name="FlightSpeed" Origin="5" 
+		    Type="Int" Max="100" Min="0" Default="0" />
+      <Subscribe Name="VerticalSpeed" Origin="Simulation" 
+		    Type="Int" Max="100" Min="-100" Default="0" />
+      <Subscribe Name="GPS_Latitude" Origin="2"
+        Type="Double" Max="90" Min="-90" Default="0" />
+      <Subscribe Name="GPS_Longitude" Origin="2"
+        Type="Double" Max="180" Min="-180" Default="0" />
+      <Subscribe Name="GPS_Latitude2" Origin="3"
+        Type="Double" Max="90" Min="-90" Default="0" />
+      <Subscribe Name="GPS_Longitude2" Origin="3"
+        Type="Double" Max="180" Min="-180" Default="0" />
+      <Subscribe Name="IRS_Latitude" Origin="4"
+        Type="Double" Max="90" Min="-90" Default="0" />
+      <Subscribe Name="IRS_Longitude" Origin="4"
+        Type="Double" Max="180" Min="-180" Default="0" ></Subscribe>
+      <Publish Name="Speed" Type="Int" Default="0" 
+		    Operation="Subtraction" Operand1="FlightSpeed" 
+		    Operand2="WindSpeed" Max="600" Min="-100" />
+      <Publish Name="Elevation_Change" Type="Int" Default="0" 
+		    Operation="Multiplication" Operand1="Duration" 
+		    Operand2="VerticalSpeed" Max="40000" Min="-30000" />
+      <Publish Name="Latitude" Type="Double" Default="0"
+        Operation="Average" Operand1="GPS_Latitude" Operand2="GPS_Latitude2"
+        Operand3="IRS_Latitude" Max="90" Min="-90" />
+      <Publish Name="Longitude" Type="Double" Default="0"
+        Operation="Average" Operand1="GPS_Longitude" Operand2="GPS_Longitude2"
+        Operand3="IRS_Longitude" Max="180" Min="-180" />
+    </FMS>
+    <GPS ProductID="2">
+      <Publish Name="GPS_Latitude" Type="Double" Default="0" Min="-90" Max="90"
+		Operation="Addition" Operand1="GPS_Latitude" Operand2="Latitude_Change" ></Publish>
+      <Publish Name="GPS_Longitude" Type="Double" Default="0" Min="-180" Max="180"
+		Operation="Addition" Operand1="GPS_Longitude" Operand2="Longitude_Change" />
+      <Publish Name="Accuracy" Type="Double" Default=".8" Min="0" Max="1" />
+      <Subscribe Name="Latitude_Change" Origin="Simulation"
+        Type ="Double" Default="0" Min="-90" Max="90" />
+      <Subscribe Name="Longitude_Change" Origin="Simulation"
+        Type="Double" Default="0" Min="-180" Max="180" />
+    </GPS>
+	  <GPS ProductID="3">
+      <Publish Name="GPS_Latitude2" Type="Double" Default="0" Min="-90" Max="90" 
+		    Operation="Addition" Operand1="GPS_Latitude2" Operand2="Latitude_Change" />
+      <Publish Name="GPS_Longitude2" Type="Double" Default="0" Min="-180" Max="180" 
+		    Operation="Addition" Operand1="GPS_Longitude2" Operand2="Longitude_Change" />
+      <Publish Name="Accuracy" Type="Double" Default=".95" Min="0" Max="1" />
+      <Subscribe Name="Latitude_Change" Origin="Simulation"
+        Type ="Double" Default="0" Min="-90" Max="90" />
+      <Subscribe Name="Longitude_Change" Origin="Simulation"
+        Type="Double" Default="0" Min="-180" Max="180" />
+    </GPS>
+    <IRS ProductID="4">
+      <Publish Name="IRS_Latitude" Type="Double" Default="0" Min="-90" Max="90" 
+		Operation="Addition" Operand1="IRS_Latitude" Operand2="Latitude_Change" />
+      <Publish Name="Accuracy" Type="Double" Default=".9" Min="0" Max="1" 
+		Operation="Addition" Operand1="IRS_Longitude" Operand2="Longitude_Change" />
+      <Publish Name="IRS_Longitude" Type="Double" Default="0" Min="-180" Max="180" />
+      <Subscribe Name="Latitude_Change" Origin="Simulation"
+        Type ="Double" Default="0" Min="-90" Max="90" />
+      <Subscribe Name="Longitude_Change" Origin="Simulation"
+        Type="Double" Default="0" Min="-180" Max="180" />
+    </IRS>
+    <Engine ProductID="5">
+      <Publish Name="FlightSpeed" Type="Int" Default="500" Max="700" Min="0" />
+    </Engine>
+  </B737>
+</Boeing>
