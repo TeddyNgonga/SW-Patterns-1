@@ -15,17 +15,17 @@ public class PartsFactory{
 		public String name = "";
 	
 	   //use getShape method to get object of type shape 
-	   public Configuration getShape(String nameType, String productID) throws ParserConfigurationException, SAXException, IOException, XMLStreamException{
+	   public Configuration getShape(String nameType, String productID, String filePath) throws ParserConfigurationException, SAXException, IOException, XMLStreamException{
 		    setName(nameType);
 			//Get Document Builder
 			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder builder = factory.newDocumentBuilder();
 			 
 			//Build Document
-			Document document = builder.parse(new File("./resources/Boeing777Configuration.xml"));
+			Document document = builder.parse(new File(filePath));
 			//Normalize the XML Structure; It's just too important !!
 			document.getDocumentElement().normalize();
-			
+	
 			
 	      if(nameType == null){
 	         return null;

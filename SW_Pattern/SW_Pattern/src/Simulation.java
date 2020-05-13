@@ -9,7 +9,7 @@ import org.xml.sax.SAXException;
 public class Simulation {
     public ArrayList<Configuration> configurations737 = new ArrayList<Configuration>(); // Create an ArrayList object
     public ArrayList<Configuration> configurations777 = new ArrayList<Configuration>(); // Create an ArrayList object
-
+    
 
 	public Simulation() throws ParserConfigurationException, SAXException, IOException, XMLStreamException {
 		// TODO Auto-generated constructor stub
@@ -24,11 +24,11 @@ public class Simulation {
 	    	 
 			    PartsFactory partsFactory = new PartsFactory();
 			    
-			    Configuration fmsPart1 = partsFactory.getShape("FMS", "1");
-			    Configuration gpsPart2 = partsFactory.getShape("GPS", "2");
-			    Configuration gpsPart3 = partsFactory.getShape("GPS", "3");		
-			    Configuration irsPart4 = partsFactory.getShape("IRS", "4");
-			    Configuration enginePart5 = partsFactory.getShape("Engine", "5");
+			    Configuration fmsPart1 = partsFactory.getShape("FMS", "1", "./resources/Boeing737Configuration.xml");
+			    Configuration gpsPart2 = partsFactory.getShape("GPS", "2", "./resources/Boeing737Configuration.xml");
+			    Configuration gpsPart3 = partsFactory.getShape("GPS", "3", "./resources/Boeing737Configuration.xml");		
+			    Configuration irsPart4 = partsFactory.getShape("IRS", "4", "./resources/Boeing737Configuration.xml");
+			    Configuration enginePart5 = partsFactory.getShape("Engine", "5", "./resources/Boeing737Configuration.xml");
 			    
 			    System.out.println("Error: " + fmsPart1.getName() );
 			    configurations737.add(fmsPart1);
@@ -60,10 +60,10 @@ public class Simulation {
 	    	 
 			    PartsFactory partsFactory = new PartsFactory();
 			    
-			    Configuration fmsPart1 = partsFactory.getShape("FMS", "1");
-			    Configuration gpsPart2 = partsFactory.getShape("GPS", "2");	
-			    Configuration irsPart4 = partsFactory.getShape("IRS", "3");
-			    Configuration enginePart5 = partsFactory.getShape("Engine", "4");
+			    Configuration fmsPart1 = partsFactory.getShape("FMS", "1", "./resources/Boeing777Configuration.xml");
+			    Configuration gpsPart2 = partsFactory.getShape("GPS", "2", "./resources/Boeing777Configuration.xml");	
+			    Configuration irsPart4 = partsFactory.getShape("IRS", "3", "./resources/Boeing777Configuration.xml");
+			    Configuration enginePart5 = partsFactory.getShape("Engine", "4", "./resources/Boeing777Configuration.xml");
 			    configurations777.add(fmsPart1);
 			    configurations777.add(gpsPart2);
 			    configurations777.add(irsPart4);
